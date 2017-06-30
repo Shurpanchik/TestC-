@@ -37,9 +37,6 @@ namespace WebApi.Migrations
 		{
 			migrationBuilder.DropTable(
 				name: "Messages");
-
-            migrationBuilder.DropTable(
-               name: "Comments");
-        }
+                }
 	}
 }
