@@ -1,0 +1,9 @@
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\bin\Debug\netcoreapp1.1\WebApi.deps.json
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\bin\Debug\netcoreapp1.1\WebApi.runtimeconfig.json
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\bin\Debug\netcoreapp1.1\WebApi.runtimeconfig.dev.json
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\bin\Debug\netcoreapp1.1\WebApi.dll
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\bin\Debug\netcoreapp1.1\WebApi.pdb
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\obj\Debug\netcoreapp1.1\WebApi.AssemblyInfo.cs
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\obj\Debug\netcoreapp1.1\WebApi.dll
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\obj\Debug\netcoreapp1.1\WebApi.pdb
+C:\Users\tshur\Desktop\для управдома\Altarix курсы\altarix\WebApi\src\WebApi\obj\Debug\netcoreapp1.1\WebApi.csprojResolveAssemblyReference.cache

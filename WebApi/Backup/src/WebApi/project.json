@@ -1,0 +1,72 @@
+﻿{
+	"version": "1.0.0",
+	"buildOptions": {
+		"optimize": false,
+		"define": [ "DEBUG" ],
+		"debugType": "full",
+		"emitEntryPoint": true,
+		"preserveCompilationContext": true,
+		"nowarn": [
+			"CS0618",
+			"CS1591",
+			"CS1998"
+		]
+	},
+	"publishOptions": {
+		"includeFiles": [
+			"appsettings.json",
+			"hosting.json",
+			"nlog.config"
+		]
+	},
+	"runtimeOptions": {
+		"configProperties": {
+			"System.GC.Server": true,
+			"System.GC.Concurrent": true
+		}
+	},
+	"frameworks": {
+		"netcoreapp1.1": {
+			"dependencies": {
+				"Microsoft.NETCore.App": {
+					"version": "1.1.0",
+					"type": "platform"
+				}
+			},
+			"imports": [
+				"dotnet5.6"
+			]
+		}
+	},
+	"dependencies": {
+		// логгирование
+		"NLog.Web.AspNetCore": "4.4.0",
+
+		// веб-сервер
+		"Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
+		// конфиги
+		"Microsoft.Extensions.Configuration.EnvironmentVariables": "1.1.0",
+		"Microsoft.Extensions.Configuration.FileExtensions": "1.1.1",
+		"Microsoft.Extensions.Configuration.Json": "1.1.1",
+		"Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
+		// модный ioc
+		"Autofac.Extensions.DependencyInjection": "4.0.0",
+
+		// веб-api
+		"Microsoft.AspNetCore.Owin": "1.1.0",
+		"Nancy": "2.0.0-clinteastwood",
+		"Nancy.Bootstrappers.Autofac": "2.0.0-clinteastwood",
+		"Newtonsoft.Json": "10.0.2",
+
+		// EF
+		"Microsoft.EntityFrameworkCore.Design": "1.1.1",
+		"Npgsql.EntityFrameworkCore.PostgreSQL": "1.1.0"
+	},
+	"tools": {
+		// что бы работали комманды dotnet ef *
+		"Microsoft.EntityFrameworkCore.Tools.DotNet": "1.1.0-preview4-final"
+	},
+	"commands": {
+		"ef": "EntityFramework.Commands"
+	}
+}
