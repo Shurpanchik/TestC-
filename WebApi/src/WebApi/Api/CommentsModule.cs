@@ -20,8 +20,10 @@ namespace WebApi.Api
             });
 
             // добавление нового комментария
-            Post("/", name: "AddNewComment", action: async (__, __token) =>
+            Post("/{messageId}", name: "AddNewComment", action: async (__params, __token) =>
             {
+                Guid id = __params.messageId;
+
                 Comment comment = this.Bind();
 
                 comment.CreateDate = DateTimeOffset.UtcNow;
@@ -56,6 +58,8 @@ namespace WebApi.Api
                 var comment = await context.Comments.FirstOrDefaultAsync(__comment => __comment.Id == id, __token).ConfigureAwait(false);
 
                 context.Remove(comment);
+
+                await context.SaveChangesAsync(__token).ConfigureAwait(false);
 
                 return comment;
             });

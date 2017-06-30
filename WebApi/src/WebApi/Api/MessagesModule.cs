@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Nancy.ModelBinding;
 using WebApi.Models;
+using System.Linq;
 
 namespace WebApi.Api
 {
@@ -61,10 +62,12 @@ namespace WebApi.Api
 
                 var message = await context.Messages.FirstOrDefaultAsync(__message => __message.Id == id, __token).ConfigureAwait(false);
 
-                var comments = await context.Comments.FromSql(String.Format("Select * from Comments where messageId = '{0}'",id)).ToListAsync(); 
+                var comments = from comment in context.Comments
+                               where comment.MessageId == id
+                               select comment;
 
                 return comments;
             });
         }
-	}
+    }
 }
