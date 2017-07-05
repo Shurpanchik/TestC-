@@ -4,14 +4,19 @@ using NLog.Extensions.Logging;
 
 namespace WebApi.Models
 {
-	public sealed class ApiDbContext : DbContext
+	public class ApiDbContext : DbContext
 	{
 		public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
 		{
 		}
 
-		public DbSet<Message> Messages { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        // конструктор без параметров для тестов
+        public ApiDbContext() 
+        {
+        }
+
+        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

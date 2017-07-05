@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Models
 {
@@ -6,7 +7,8 @@ namespace WebApi.Models
 	{
 		public DateTimeOffset CreateDate { get; set; }
 
-		public string Text { get; set; }
+        [NotBadWords]
+        public string Text { get; set; }
 
 		public Guid? QuestionId { get; set; }
 
