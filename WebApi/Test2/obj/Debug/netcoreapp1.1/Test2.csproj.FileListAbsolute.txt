@@ -1,0 +1,14 @@
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\Test2.deps.json
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\Test2.dll
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\obj\Debug\netcoreapp1.1\Test2.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\obj\Debug\netcoreapp1.1\Test2.AssemblyInfo.cs
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\NUnit3.TestAdapter.dll
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\nunit.engine.netstandard.dll
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\Mono.Cecil.dll
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\WebApi.dll
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\WebApi.pdb
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\Test2.runtimeconfig.json
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\Test2.runtimeconfig.dev.json
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\bin\Debug\netcoreapp1.1\Test2.pdb
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\obj\Debug\netcoreapp1.1\Test2.dll
+C:\Users\Admin\Desktop\altarix\TestC-\WebApi\Test2\obj\Debug\netcoreapp1.1\Test2.pdb
