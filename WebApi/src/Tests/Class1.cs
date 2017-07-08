@@ -77,6 +77,25 @@ namespace Tests
                 CreateDate = DateTimeOffset.UtcNow,
                 Text = "Bad word"
             });
+            /*
+            MessagesService messagesService = new messagesService(mockContext);
+            messagesService.Add(new Message
+            {
+                Id = Guid.NewGuid(),
+                // CreateDate = DateTimeOffset.UtcNow,
+                Text = null
+            })
+            messagesService.Add(new Message
+            {
+                Id = Guid.NewGuid(),
+                CreateDate = DateTimeOffset.UtcNow,
+                Text = "Bad word"
+            })
+
+            // такое слово не должно добавляться в контекст
+            Assert.AreEqual(0, messagesService.mockContext.Object.Messages.Count());
+            */
+            
             // такое слово не должно добавляться в контекст
             Assert.AreEqual(0, mockContext.Object.Messages.Count());
 
