@@ -52,59 +52,39 @@ namespace Test2
         }
 
         [Test]
-        public async Task BadWordsByAddMessage()
+        public void BadWordsByAddMessage()
         {
-            var data = new List<Message>();
-            var queryableData = data.AsQueryable();
-
-            var mockSet = new Mock<DbSet<Message>>();
-            mockSet.As<IQueryable<Message>>().Setup(__messages => __messages.Provider).Returns(queryableData.Provider);
-            mockSet.As<IQueryable<Message>>().Setup(__messages => __messages.Expression).Returns(queryableData.Expression);
-            mockSet.As<IQueryable<Message>>().Setup(__messages => __messages.ElementType).Returns(queryableData.ElementType);
-            mockSet.As<IQueryable<Message>>().Setup(__messages => __messages.GetEnumerator()).Returns(() => data.GetEnumerator());
-            mockSet.Setup(__messages => __messages.Add(It.IsAny<Message>())).Callback<Message>((__message) => data.Add(__message));
-
             var mockContext = new Mock<ApiDbContext>();
-            mockContext.Setup(c => c.Messages).Returns(mockSet.Object);
-
-            mockSet.Object.Add(new Message
-            {
-                Id = Guid.NewGuid(),
-                // CreateDate = DateTimeOffset.UtcNow,
-                Text = null
-            });
-
-            mockSet.Object.Add(new Message
+            mockContext.Setup(m => m.SaveChanges()).Verifiable();   
+            
+            MessagesService messagesService = new MessagesService(mockContext.Object);
+            messagesService.Add(new Message
             {
                 Id = Guid.NewGuid(),
                 CreateDate = DateTimeOffset.UtcNow,
                 Text = "Bad word"
             });
-            
-            /*
-            MessagesService messagesService = new MessagesService(mockContext);
-            await messagesService.Add(new Message
-            {
-                Id = Guid.NewGuid(),
-                // CreateDate = DateTimeOffset.UtcNow,
-                Text = null
-            }, new System.Threading.CancellationToken());
-            await messagesService.Add(new Message
-            {
-                Id = Guid.NewGuid(),
-                CreateDate = DateTimeOffset.UtcNow,
-                Text = "Bad word"
-            }, new System.Threading.CancellationToken());
 
-            // такое слово не должно добавляться в контекст
-            Assert.AreEqual(0, messagesService.mockContext.Object.Messages.Count());
-            */
-            
-            // такое слово не должно добавляться в контекст
-            Assert.AreEqual(0, mockContext.Object.Messages.Count());
-
+            //mockContext.Verify(m => m.Add(It.IsAny<Message>()), Times.Once);
+            mockContext.Verify(m => m.SaveChanges(), Times.Never);
         }
+        [Test]
+        public void NotBadWordsByAddMessage()
+        {
+            var mockContext = new Mock<ApiDbContext>();
+            mockContext.Setup(m => m.SaveChanges()).Verifiable();
 
+            MessagesService messagesService = new MessagesService(mockContext.Object);
+            messagesService.Add(new Message
+            {
+                Id = Guid.NewGuid(),
+                CreateDate = DateTimeOffset.UtcNow,
+                Text = "Hi"
+            });
+
+                //mockContext.Verify(m => m.Add(It.IsAny<Message>()), Times.Once);
+                mockContext.Verify(m => m.SaveChanges(), Times.Once);
+        }
 
     }
     }

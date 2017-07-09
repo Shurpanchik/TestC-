@@ -8,8 +8,9 @@ using WebApi.Models;
 
 namespace WebApi.Api
 {
-    public class MessagesService    {
-        private ApiDbContext __context;
+    public class MessagesService
+    {
+        public ApiDbContext __context;
 
         public MessagesService(ApiDbContext context)
         {
@@ -19,6 +20,11 @@ namespace WebApi.Api
         public async Task<List<Message>> GetAllMessages(CancellationToken token)
         {
             return await __context.Messages.ToListAsync(token).ConfigureAwait(false);
+        }
+
+        public List<Message> GetAllMessages()
+        {
+            return __context.Messages.ToList();
         }
 
         public async Task<Message> GetMessageById(Guid id, CancellationToken token)
@@ -50,31 +56,52 @@ namespace WebApi.Api
             var message = await __context.Messages.FirstOrDefaultAsync(__message => __message.Id == id, token).ConfigureAwait(false);
 
             var comments = (from comment in __context.Comments
-                           where comment.MessageId == id
-                           select comment).ToList();
+                            where comment.MessageId == id
+                            select comment).ToList();
 
             return comments;
         }
 
         public async Task Add(Message response, CancellationToken token)
         {
-            await __context.AddAsync(response, token).ConfigureAwait(false);
-            await SaveChangesAsync(response, token);
+            if (isNotBadText(response.Text))
+            {
+                await __context.AddAsync(response, token).ConfigureAwait(false);
+                await SaveChangesAsync(response, token);
+            }
         }
 
+        public void Add(Message response)
+        {
+             
+            if (isNotBadText(response.Text))
+            {
+                __context.Add(response);
+                SaveChanges(response);
+            }
+        }
 
         private async Task SaveChangesAsync(Message message, CancellationToken token)
         {
-            if (message.Text.Contains("Bad word"))
-            {
-                // произойдет тоже, что и если бы мы сохранили id == null
-                message.Text = null;
-                await __context.AddAsync(message, token).ConfigureAwait(false);
                 await __context.SaveChangesAsync(token).ConfigureAwait(false);
+        }
+
+
+        private  void SaveChanges(Message message)
+        {
+                __context.SaveChanges();
+        }
+
+
+        private bool isNotBadText(string text)
+        {
+            if (text.Contains("Bad word"))
+            {
+                return false;
             }
             else
             {
-                await __context.SaveChangesAsync(token).ConfigureAwait(false);
+                return true;
             }
         }
     }

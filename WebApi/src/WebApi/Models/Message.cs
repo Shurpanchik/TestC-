@@ -7,7 +7,6 @@ namespace WebApi.Models
 	{
 		public DateTimeOffset CreateDate { get; set; }
 
-        [NotBadWords]
         public string Text { get; set; }
 
 		public Guid? QuestionId { get; set; }
