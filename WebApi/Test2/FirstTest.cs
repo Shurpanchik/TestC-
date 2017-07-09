@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Test2
 {
-    class BadWordTest
+    class FirstTest
     {
         
         [Test]
@@ -34,8 +34,8 @@ namespace Test2
                 new Message
                 {
                     Id = Guid.NewGuid(),
-                   // CreateDate = DateTimeOffset.UtcNow,
-                   // Text = Guid.NewGuid().ToString()
+                    CreateDate = DateTimeOffset.UtcNow,
+                   Text = Guid.NewGuid().ToString()
                 }
             }.AsQueryable();
 
@@ -50,41 +50,5 @@ namespace Test2
 
             Assert.AreEqual(2, mockContext.Object.Messages.Count());
         }
-
-        [Test]
-        public void BadWordsByAddMessage()
-        {
-            var mockContext = new Mock<ApiDbContext>();
-            mockContext.Setup(m => m.SaveChanges()).Verifiable();   
-            
-            MessagesService messagesService = new MessagesService(mockContext.Object);
-            messagesService.Add(new Message
-            {
-                Id = Guid.NewGuid(),
-                CreateDate = DateTimeOffset.UtcNow,
-                Text = "Bad word"
-            });
-
-            //mockContext.Verify(m => m.Add(It.IsAny<Message>()), Times.Once);
-            mockContext.Verify(m => m.SaveChanges(), Times.Never);
-        }
-        [Test]
-        public void NotBadWordsByAddMessage()
-        {
-            var mockContext = new Mock<ApiDbContext>();
-            mockContext.Setup(m => m.SaveChanges()).Verifiable();
-
-            MessagesService messagesService = new MessagesService(mockContext.Object);
-            messagesService.Add(new Message
-            {
-                Id = Guid.NewGuid(),
-                CreateDate = DateTimeOffset.UtcNow,
-                Text = "Hi"
-            });
-
-                //mockContext.Verify(m => m.Add(It.IsAny<Message>()), Times.Once);
-                mockContext.Verify(m => m.SaveChanges(), Times.Once);
-        }
-
     }
-    }
+}
