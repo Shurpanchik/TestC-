@@ -17,6 +17,9 @@ namespace WebApi.Models
 
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Forum> Forums { get; set; }
+        public virtual DbSet<Topic> Topics { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -44,6 +47,22 @@ namespace WebApi.Models
             builder.Entity<Comment>().Property(__comment => __comment.ChangeDate).IsRequired();
             builder.Entity<Comment>().Property(__comment => __comment.AuthorName).IsRequired();
             builder.Entity<Comment>().HasOne(__comment => __comment.Message);
+
+            //связи Forum
+            builder.Entity<Forum>().HasKey(__forum => __forum.Id);
+            builder.Entity<Forum>().Property(__forum => __forum.Name).IsRequired();
+
+            // связи Topic
+            builder.Entity<Topic>().HasKey(__topic => __topic.Id);
+            builder.Entity<Topic>().Property(__topic => __topic.Name).IsRequired();
+            builder.Entity<Topic>().Property(__topic => __topic.Forum).IsRequired();
+            builder.Entity<Topic>().HasOne(__topic => __topic.Forum);
+
+            //связи Post
+            builder.Entity<Post>().HasKey(__post => __post.Id);
+            builder.Entity<Post>().Property(__post => __post.Text).IsRequired();
+            builder.Entity<Post>().Property(__post => __post.Topic).IsRequired();
+            builder.Entity<Post>().HasOne(__topic => __topic.Topic);
 
         }
 	}
