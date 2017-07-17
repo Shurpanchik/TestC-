@@ -9,5 +9,6 @@ namespace WebApi.Models
     {
         public string Name { get; set; }
         public Forum Forum { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }

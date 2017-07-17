@@ -51,12 +51,14 @@ namespace WebApi.Models
             //связи Forum
             builder.Entity<Forum>().HasKey(__forum => __forum.Id);
             builder.Entity<Forum>().Property(__forum => __forum.Name).IsRequired();
+            builder.Entity<Forum>().HasMany(__forum => __forum.Topics);
 
             // связи Topic
             builder.Entity<Topic>().HasKey(__topic => __topic.Id);
             builder.Entity<Topic>().Property(__topic => __topic.Name).IsRequired();
             builder.Entity<Topic>().Property(__topic => __topic.Forum).IsRequired();
             builder.Entity<Topic>().HasOne(__topic => __topic.Forum);
+            builder.Entity<Topic>().HasMany(__topic => __topic.Posts);
 
             //связи Post
             builder.Entity<Post>().HasKey(__post => __post.Id);

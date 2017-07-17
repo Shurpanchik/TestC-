@@ -8,5 +8,6 @@ namespace WebApi.Models
     public class Forum : ModelId
     {
         public string Name{ get; set; }
+        public ICollection<Topic> Topics { get; set; }
     }
 }
