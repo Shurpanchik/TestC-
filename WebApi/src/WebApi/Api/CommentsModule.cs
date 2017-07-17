@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nancy.ModelBinding;
+using Nancy.Security;
 using System;
+using System.Security.Claims;
 using WebApi.Models;
 
 namespace WebApi.Api
@@ -64,6 +66,17 @@ namespace WebApi.Api
                 return comment;
             });
 
+            Get("/getWordComment", name: "getWordComment", action: async (__, __token) =>
+            {
+                this.RequiresAuthentication();
+                return "getWordComment";
+            });
+            Get("/getWordComment2", name: "getWordComment", action: async (__, __token) =>
+            {
+               // this.RequiresAuthentication();
+                this.RequiresClaims(c => c.Type == "user");
+                return "getWordComment";
+            });
         }
     }
 }
