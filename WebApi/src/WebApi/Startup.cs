@@ -13,6 +13,9 @@ using NLog.Extensions.Logging;
 using NLog.Web;
 using WebApi.Models;
 using WebApi.Owin;
+using WebApi.Api;
+using WebApi.Auth;
+using Nancy.Authentication.Basic;
 
 namespace WebApi
 {
@@ -46,8 +49,13 @@ namespace WebApi
 				.UseNpgsql(sqlConnectionString, __options => __options.MigrationsAssembly(nameof(WebApi))));
 
 			var builder = new ContainerBuilder();
-			builder.Populate(services);
-			_applicationContainer = builder.Build();
+
+            builder.Populate(services);
+
+            builder.RegisterType<UserValidator>().As<IUserValidator>();
+            builder.RegisterType<MessagesService>().As<MessagesService>();
+
+            _applicationContainer = builder.Build();
 
 			return new AutofacServiceProvider(_applicationContainer);
 		}
@@ -62,7 +70,7 @@ namespace WebApi
 				.UseOwin()
 				.UseNancy(__options => __options.Bootstrapper = _bootstrapper);
 
-			applicationBuilder.AddNLogWeb();
+            applicationBuilder.AddNLogWeb();
 
 			applicationLifetime.ApplicationStopped.Register(() =>
 			{
