@@ -27,21 +27,31 @@ namespace WebApi.Services
             return Post;
         }
 
-        public async Task AddAsync(Post response, CancellationToken token)
+        public async Task<Post> AddAsync(Post response, CancellationToken token)
         {
             if (!TextService.IsBadText(response.Text))
             {
                 await __context.AddAsync(response, token).ConfigureAwait(false);
                 await SaveChangesAsync(token);
+                return response;
+            }
+            else
+            {
+                return null;
             }
         }
 
-        public async Task UpdateAsync(Post Post, CancellationToken token)
+        public async Task<Post> UpdateAsync(Post post, CancellationToken token)
         {
-            if (!TextService.IsBadText(Post.Text))
+            if (!TextService.IsBadText(post.Text))
             {
-                __context.Posts.Update(Post);
+                __context.Posts.Update(post);
                 await SaveChangesAsync(token);
+                return post;
+            }
+            else
+            {
+                return null;
             }
         }
 

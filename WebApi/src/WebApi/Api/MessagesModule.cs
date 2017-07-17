@@ -3,24 +3,29 @@ using Microsoft.EntityFrameworkCore;
 using Nancy.ModelBinding;
 using WebApi.Models;
 using System.Linq;
+using Nancy.Security;
 
 namespace WebApi.Api
 {
     
 	public sealed class MessagesModule : ApiModuleBase
 	{
-        public MessagesModule(MessagesService messagesService) : base("/messages")
+        public MessagesModule(ApiDbContext context) : base("/messages")
         {
+            MessagesService messagesService = new MessagesService(context);
+
             Get("/", name: "GetAllMessages", action: async (__, __token) =>
             {
+                this.RequiresAuthentication();
+
                 var messages = await messagesService.GetAllMessagesAsync(__token);
 
-
-                return messages;
+                    return messages;
             });
 
             Get("/{id}", name: "GetMessageById", action: async (__params, __token) =>
             {
+
                 Guid id = __params.Id;
 
                 var message = await messagesService.GetMessageByIdAsync(id, __token);
@@ -30,6 +35,7 @@ namespace WebApi.Api
 
             Post("/{questionId}/", name: "AddResponse", action: async (__params, __token) =>
             {
+
                 Guid id = __params.questionId;
                 Message response = this.Bind();
 
@@ -42,6 +48,7 @@ namespace WebApi.Api
 
             Post("/", name: "AddQuestion", action: async (__, __token) =>
             {
+
                 Message question = this.Bind();
 
                 question = await messagesService.AddQuestionAsync(question, __token);

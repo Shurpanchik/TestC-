@@ -28,21 +28,31 @@ namespace WebApi.Services
             return Topic;
         }
 
-        public async Task AddAsync(Topic response, CancellationToken token)
+        public async Task <Topic> AddAsync(Topic response, CancellationToken token)
         {
             if (!TextService.IsBadText(response.Name))
             {
                 await __context.AddAsync(response, token).ConfigureAwait(false);
                 await SaveChangesAsync(token);
+                return response;
+            }
+            else
+            {
+                return null;
             }
         }
 
-        public async Task UpdateAsync(Topic Topic, CancellationToken token)
+        public async Task<Topic> UpdateAsync(Topic topic, CancellationToken token)
         {
-            if (!TextService.IsBadText(Topic.Name))
+            if (!TextService.IsBadText(topic.Name))
             {
-                __context.Topics.Update(Topic);
+                __context.Topics.Update(topic);
                 await SaveChangesAsync(token);
+                return topic;
+            }
+            else
+            {
+                return null;
             }
         }
 

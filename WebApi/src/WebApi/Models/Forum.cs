@@ -9,5 +9,10 @@ namespace WebApi.Models
     {
         public string Name{ get; set; }
         public ICollection<Topic> Topics { get; set; }
+
+        public Forum()
+        {
+            Topics = new List<Topic>();
+        }
     }
 }

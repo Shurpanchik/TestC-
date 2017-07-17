@@ -10,8 +10,10 @@ namespace WebApi.Api
     public class ForumsModule : ApiModuleBase
     {
 
-        public ForumsModule(ForumsService forumService) : base("/forums")
+        public ForumsModule(ApiDbContext context) : base("/forums")
         {
+            ForumsService forumService = new ForumsService(context);
+
             // получаем все форумы с вложениями
             Get("/", name: "GetAllForums", action: async (__params, __token) =>
             {

@@ -16,6 +16,7 @@ using WebApi.Owin;
 using WebApi.Api;
 using WebApi.Auth;
 using Nancy.Authentication.Basic;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -53,7 +54,12 @@ namespace WebApi
             builder.Populate(services);
 
             builder.RegisterType<UserValidator>().As<IUserValidator>();
-            builder.RegisterType<MessagesService>().As<MessagesService>();
+
+            //builder.RegisterType<MessagesService>().As<MessagesService>();
+            builder.RegisterType<ForumsService>().As<ForumsService>();
+            builder.RegisterType<TopicsService>().As<TopicsService>();
+            builder.RegisterType<PostsService>().As<PostsService>();
+
 
             _applicationContainer = builder.Build();
 

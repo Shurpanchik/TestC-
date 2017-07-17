@@ -11,8 +11,10 @@ namespace WebApi.Api
 {
     public class PostsModule : ApiModuleBase
     {
-        public PostsModule(PostsService Postservice) : base("/posts")
+        public PostsModule(ApiDbContext context) : base("/posts")
         {
+            PostsService postservice = new PostsService(context);
+
             // получаем пост по id
             Get("/{id}", name: "GetPostById", action: async (__params, __token) =>
             {
@@ -20,7 +22,7 @@ namespace WebApi.Api
 
                 Guid id = __params.Id;
 
-                return Postservice.GetPostByIdAsync(id, __token);
+                return postservice.GetPostByIdAsync(id, __token);
             });
 
             Post("/", name: "AddPost", action: async (__, __token) =>
@@ -29,7 +31,7 @@ namespace WebApi.Api
 
                 Post post = this.Bind();
 
-                return Postservice.AddAsync(post, __token);
+                return postservice.AddAsync(post, __token);
             });
 
             Put("/", name: "UpdatePost", action: async (__, __token) =>
@@ -39,7 +41,7 @@ namespace WebApi.Api
 
                 Post post = this.Bind();
 
-                return Postservice.UpdateAsync(post, __token);
+                return postservice.UpdateAsync(post, __token);
             });
 
             Delete("/{id}", name: "DeletePost", action: async (__params, __token) =>
@@ -49,7 +51,7 @@ namespace WebApi.Api
 
                 Guid id = __params.Id;
 
-                return Postservice.RemoveAsync(id, __token);
+                return postservice.RemoveAsync(id, __token);
             });
         }
     }

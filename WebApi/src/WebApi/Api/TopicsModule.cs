@@ -11,8 +11,9 @@ namespace WebApi.Api
 {
     public class TopicsModule : ApiModuleBase
     {
-        public TopicsModule(TopicsService Topicservice) : base("/topics")
+        public TopicsModule(ApiDbContext context) : base("/topics")
         {
+            TopicsService topicservice = new TopicsService(context);
 
             // получаем топик со списком всех постов
             Get("/{id}", name: "GetTopicById", action: async (__params, __token) =>
@@ -21,7 +22,7 @@ namespace WebApi.Api
 
                 Guid id = __params.Id;
 
-                return Topicservice.GetTopicByIdAsync(id, __token);
+                return topicservice.GetTopicByIdAsync(id, __token);
             });
 
             Post("/", name: "AddTopic", action: async (__, __token) =>
@@ -30,7 +31,7 @@ namespace WebApi.Api
 
                 Topic topic = this.Bind();
 
-                return Topicservice.AddAsync(topic, __token);
+                return topicservice.AddAsync(topic, __token);
             });
 
             Put("/", name: "UpdateTopic", action: async (__, __token) =>
@@ -40,7 +41,7 @@ namespace WebApi.Api
 
                 Topic topic = this.Bind();
 
-                return Topicservice.UpdateAsync(topic, __token);
+                return topicservice.UpdateAsync(topic, __token);
             });
 
             Delete("/{id}", name: "DeleteTopic", action: async (__params, __token) =>
@@ -50,7 +51,7 @@ namespace WebApi.Api
 
                 Guid id = __params.Id;
 
-                return Topicservice.RemoveAsync(id, __token);
+                return topicservice.RemoveAsync(id, __token);
             });
 
         }

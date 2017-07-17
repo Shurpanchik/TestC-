@@ -34,21 +34,32 @@ namespace WebApi.Api
             return forum;
         }
 
-        public async Task AddAsync(Forum response, CancellationToken token)
+        public async Task<Forum> AddAsync(Forum response, CancellationToken token)
         {
             if (!TextService.IsBadText(response.Name))
             {
                 await _context.AddAsync(response, token).ConfigureAwait(false);
                 await SaveChangesAsync(token);
+
+                return response;
+            }
+            else
+            {
+                return null;
             }
         }
 
-        public async Task UpdateAsync(Forum forum, CancellationToken token)
+        public async Task<Forum> UpdateAsync(Forum forum, CancellationToken token)
         {
             if (!TextService.IsBadText(forum.Name))
             {
                 _context.Forums.Update(forum);
                 await SaveChangesAsync(token);
+                return forum;
+            }
+            else
+            {
+                return null;
             }
         }
 
