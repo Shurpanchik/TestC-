@@ -3,6 +3,7 @@ using Nancy.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApi.Models;
 using WebApi.Services;
@@ -37,7 +38,7 @@ namespace WebApi.Api
             Put("/", name: "UpdateTopic", action: async (__, __token) =>
             {
                 this.RequiresAuthentication();
-                this.RequiresClaims(c => c.Type == "admin");
+                this.RequiresClaims(c => c.Type == ClaimTypes.Role && c.Value == "admin");
 
                 Topic topic = this.Bind();
 
@@ -47,7 +48,7 @@ namespace WebApi.Api
             Delete("/{id}", name: "DeleteTopic", action: async (__params, __token) =>
             {
                 this.RequiresAuthentication();
-                this.RequiresClaims(c => c.Type == "admin");
+                this.RequiresClaims(c => c.Type == ClaimTypes.Role && c.Value == "admin");
 
                 Guid id = __params.Id;
 

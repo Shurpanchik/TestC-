@@ -44,7 +44,7 @@ namespace WebApi.Api
             Put("/", name: "UpdateForum", action: async (__, __token) =>
             {
                 this.RequiresAuthentication();
-                this.RequiresClaims(c => c.Type == "admin");
+                this.RequiresClaims(c => c.Type == ClaimTypes.Role && c.Value == "admin");
 
                 Forum forum = this.Bind();
 
@@ -54,7 +54,7 @@ namespace WebApi.Api
             Delete("/{id}", name: "DeleteForum", action: async (__params, __token) =>
             {
                 this.RequiresAuthentication();
-                this.RequiresClaims(c => c.Type == "admin");
+                this.RequiresClaims(c => c.Type == ClaimTypes.Role && c.Value == "admin");
 
                 Guid id = __params.Id;
 

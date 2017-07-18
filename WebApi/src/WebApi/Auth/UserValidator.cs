@@ -14,22 +14,26 @@ namespace WebApi.Auth
         {
             if (username == "user" && password == "user")
             {
-                Claim[] claims = new Claim[1];
-                claims[0] = new Claim(ClaimTypes.Role, "user");
-
-                return new ClaimsPrincipal(new GenericIdentity(username, "user"));
+                return getClaimsPrincipal(username);
             }
 
             if (username == "admin" && password == "admin")
             {
-                return new ClaimsPrincipal(new GenericIdentity(username, "admin"));
+                return getClaimsPrincipal(username);
             }
 
             // Not recognised => anonymous.
             return null;
         }
 
-        
+        private ClaimsPrincipal getClaimsPrincipal(string name)
+        {
+            Claim[] claims = new Claim[1];
+            claims[0] = new Claim(ClaimTypes.Role, name);
+
+            return new ClaimsPrincipal(new ClaimsIdentity(new GenericIdentity(name, name), claims));
+        }
+
     }
 
 }
