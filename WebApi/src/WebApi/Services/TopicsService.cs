@@ -9,6 +9,7 @@ using WebApi.Models;
 
 namespace WebApi.Services
 {
+    //https://metanit.com/sharp/entityframeworkcore/3.3.php
     public class TopicsService
     {
         public ApiDbContext __context;

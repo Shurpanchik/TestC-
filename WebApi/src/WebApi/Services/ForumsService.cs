@@ -21,6 +21,7 @@ namespace WebApi.Api
         {
             return await _context.Forums
                             .Include(__forum =>__forum.Topics)
+                                .ThenInclude(_t => _t.Posts)
                             .ToListAsync(token).ConfigureAwait(false);
         }
 

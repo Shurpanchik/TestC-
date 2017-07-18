@@ -7,7 +7,10 @@ namespace WebApi.Models
 {
     public class Post : ModelId
     {
-        public string Text { get;set;}
+        public string Text { get; set; }
+
         public Topic Topic { get; set; }
+        public Guid TopicId { get; set; }
+
     }
 }
